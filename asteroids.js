@@ -11,6 +11,12 @@ let lives = 10;
 
 document.addEventListener('DOMContentLoaded', SetupCanvas);
 
+
+function randomColor() {
+    return '#' + Math.floor(Math.random()*0xffffff).toString(16);
+}
+
+
 function SetupCanvas(){
     canvas = document.getElementById('my-canvas');
     ctx = canvas.getContext('2d');
