@@ -7,15 +7,25 @@ let keys = [];
 let bullets = [];
 let asteroids = [];
 let score = 0;
-let lives = 10;
+let lives = 10;     
+let colorTeste = randomColor();
 
 document.addEventListener('DOMContentLoaded', SetupCanvas);
-
 
 function randomColor() {
     return '#' + Math.floor(Math.random()*0xffffff).toString(16);
 }
 
+function resetGame(){
+    lives = 10;  
+    score = 0;
+    ship.x = canvasWidth / 2;
+    ship.y = canvasHeight / 2;
+    ship.velX = 0;
+    ship.velY = 0;
+    ship.angle = 0;
+    ship.visible = true;
+}
 
 function SetupCanvas(){
     canvas = document.getElementById('my-canvas');
@@ -36,7 +46,22 @@ function SetupCanvas(){
     document.body.addEventListener("keyup", function(e){
         keys[e.keyCode] = false;
         if(e.keyCode === 32){
-            bullets.push(new Bullet(ship.angle));
+            bullets.push(new Bullet(ship.angle)); 
+        }
+    });
+    document.body.addEventListener("keyup", function(e){
+        keys[e.keyCode] = false;
+        if(e.keyCode === 82){
+            resetGame();
+            console.log("reset realizado");
+        }
+    });
+    document.body.addEventListener("keyup", function(e){
+        keys[e.keyCode] = false;
+        if(e.keyCode === 69){
+        for(let a = 0; a < 1; a++){  //loop para aumentar o numero de meteros chamados de uma vez
+                asteroids.push(new Asteroid());
+        }
         }
     });
     Render();
@@ -118,7 +143,7 @@ class Bullet{
         this.y -= Math.sin(radians) * this.speed;
     }
     Draw(){
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = colorTeste;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
@@ -208,11 +233,16 @@ function Render(){
     ctx.fillStyle = 'white';
     ctx.font = '21px Arial'
     ctx.fillText('SCORE: ' + score.toString(), 20, 35);
+    ctx.fillText('Controls: "E" to Add Asteroids, "R" to Reset ', 20, 60);
+    ctx.fillText('Controls: W, A, D + "space" to shoot', 20, 85);
+    ctx.fillText('Lives: '+ lives.toString(), 1290, 60);
     if(lives <= 0){
         ship.visible = false;
+        bullets.length = 0;
         ctx.fillStyle = 'white';
         ctx.font = '50px Arial'
         ctx.fillText('GAME OVER', canvasWidth / 2 - 150, canvasHeight /2);
+        ctx.fillText('Press "R" for Reset', canvasWidth / 2 - 220, canvasHeight /2 + 50);
     }
     DrawLifeShips();
 
@@ -223,6 +253,7 @@ function Render(){
                 ship.y = canvasHeight / 2;
                 ship.velX = 0;
                 ship.velY = 0;
+                ship.angle = 0;
                 lives -= 1;
             }
         }
@@ -261,6 +292,7 @@ loop1:
             bullets[i].Draw();
         }
     }
+
     if(asteroids.length !== 0){
         for(let j = 0; j< asteroids.length; j++){
             asteroids[j].Update();
@@ -269,5 +301,6 @@ loop1:
     }
     requestAnimationFrame(Render);
 }
+
 
 console.log
