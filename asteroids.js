@@ -7,13 +7,14 @@ let keys = [];
 let bullets = [];
 let asteroids = [];
 let score = 0;
-let lives = 10;     
+let lives = 10;   
 let colorTeste = randomColor();
 
 document.addEventListener('DOMContentLoaded', SetupCanvas);
 
 function randomColor() {
-    return '#' + Math.floor(Math.random()*0xffffff).toString(16);
+    colorteste1 = '#' + Math.floor(Math.random()*0xffffff).toString(16);
+
 }
 
 function resetGame(){
@@ -47,6 +48,10 @@ function SetupCanvas(){
         keys[e.keyCode] = false;
         if(e.keyCode === 32){
             bullets.push(new Bullet(ship.angle)); 
+        for(let a = 0; a < 10; a++){  
+            randomColor();
+        }
+            
         }
     });
     document.body.addEventListener("keyup", function(e){
@@ -143,7 +148,7 @@ class Bullet{
         this.y -= Math.sin(radians) * this.speed;
     }
     Draw(){
-        ctx.fillStyle = colorTeste;
+        ctx.fillStyle = colorteste1;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
@@ -233,10 +238,11 @@ function Render(){
     ctx.fillStyle = 'white';
     ctx.font = '21px Arial'
     ctx.fillText('SCORE: ' + score.toString(), 20, 35);
-    ctx.fillText('Controls: "E" to Add Asteroids, "R" to Reset ', 20, 60);
-    ctx.fillText('Controls: W, A, D + "space" to shoot', 20, 85);
+    ctx.fillText('Press "E" to Add Asteroids and "R" to Reset ', 20, 970);
+    ctx.fillText('Controls: W, A, D + "space" to shoot', 1030, 970);
     ctx.fillText('Lives: '+ lives.toString(), 1290, 60);
     if(lives <= 0){
+        lives = 0
         ship.visible = false;
         bullets.length = 0;
         ctx.fillStyle = 'white';
