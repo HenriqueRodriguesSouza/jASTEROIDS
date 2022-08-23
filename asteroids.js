@@ -8,12 +8,14 @@ let bullets = [];
 let asteroids = [];
 let score = 0;
 let lives = 10;   
-let colorTeste = randomColor();
 
 document.addEventListener('DOMContentLoaded', SetupCanvas);
 
-function randomColor() {
-    colorteste1 = '#' + Math.floor(Math.random()*0xffffff).toString(16);
+function randomColor() {    
+    for(let a = 0; a < 10; a++){  
+        colorTeste = '#' + Math.floor(Math.random()*0xffffff).toString(16);
+        console.log(a);
+    }
 
 }
 
@@ -48,10 +50,7 @@ function SetupCanvas(){
         keys[e.keyCode] = false;
         if(e.keyCode === 32){
             bullets.push(new Bullet(ship.angle)); 
-        for(let a = 0; a < 10; a++){  
-            randomColor();
-        }
-            
+            randomColor();            
         }
     });
     document.body.addEventListener("keyup", function(e){
@@ -148,7 +147,7 @@ class Bullet{
         this.y -= Math.sin(radians) * this.speed;
     }
     Draw(){
-        ctx.fillStyle = colorteste1;
+        ctx.fillStyle = colorTeste;
         ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
