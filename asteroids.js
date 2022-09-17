@@ -237,9 +237,9 @@ function Render(){
     ctx.fillStyle = 'white';
     ctx.font = '21px Arial'
     ctx.fillText('SCORE: ' + score.toString(), 20, 35);
-    ctx.fillText('Press "E" to Add Asteroids and "R" to Reset ', 20, 970);
-    ctx.fillText('Controls: W, A, D + "space" to shoot', 1030, 970);
-    ctx.fillText('Lives: '+ lives.toString(), 1290, 60);
+    ctx.fillText('Pressione "E" para adicionar asteroids e "R" para resetar ', 20, 970);
+    ctx.fillText('Controles: W, A, D + "space" para atirar', 1030, 970);
+    ctx.fillText('Vidas: '+ lives.toString(), 1290, 60);
     if(lives <= 0){
         lives = 0
         ship.visible = false;
@@ -247,7 +247,7 @@ function Render(){
         ctx.fillStyle = 'white';
         ctx.font = '50px Arial'
         ctx.fillText('GAME OVER', canvasWidth / 2 - 150, canvasHeight /2);
-        ctx.fillText('Press "R" for Reset', canvasWidth / 2 - 220, canvasHeight /2 + 50);
+        ctx.fillText('Pressione "R" para resetar', canvasWidth / 2 - 220, canvasHeight /2 + 50);
     }
     DrawLifeShips();
 
